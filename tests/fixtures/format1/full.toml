@@ -1,0 +1,25 @@
+format = 1
+name = "Coursework 1"
+output = "cw1.zip"
+excludes = ["python", "os"]
+exclude = ["*.log"]
+
+[[check]]
+type = "file-exists"
+path = "report.txt"
+
+[[check]]
+type = "max-size"
+limit = "1MB"
+
+[[check]]
+type = "max-size"
+limit = 5000000
+total = true
+severity = "warn"
+
+[[check]]
+type = "run-python"
+script = "main.py"
+args = ["--quick"]
+timeout = 10
