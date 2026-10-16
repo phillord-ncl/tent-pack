@@ -80,8 +80,12 @@ class MaxSize(Check):
         self.total = total
 
     def describe(self):
-        what = "total size of {}".format(self.path) if self.total else "size of each {}".format(self.path)
-        return "{} at most {}".format(what, format_size(self.limit))
+        scope = "files" if self.path == "*" else self.path
+        if self.total:
+            return "total size of {} at most {}".format(scope, format_size(self.limit))
+        return "no {} over {}".format(
+            "file" if self.path == "*" else self.path, format_size(self.limit)
+        )
 
     def run(self, ctx):
         sized = [
