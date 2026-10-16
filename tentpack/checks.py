@@ -5,6 +5,7 @@ import dataclasses
 import fnmatch
 import os
 import shutil
+import signal
 import subprocess
 import tempfile
 
@@ -120,34 +121,57 @@ def _decode(data):
     return data.decode(errors="replace") if isinstance(data, bytes) else data
 
 
+def _kill_tree(proc):
+    """Kill the process and anything it started, so a runaway student
+    program cannot outlive the check (or hold our pipes open)."""
+    try:
+        if os.name == "nt":
+            subprocess.run(
+                ["taskkill", "/F", "/T", "/PID", str(proc.pid)],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+            )
+        else:
+            os.killpg(proc.pid, signal.SIGKILL)
+    except OSError:
+        pass
+    proc.kill()
+
+
 def run_process(argv, cwd, stdin=None, timeout=30, env=None):
     """Run argv; ok if it exits 0 within the timeout."""
     full_env = dict(os.environ)
     full_env.update(env or {})
     try:
-        proc = subprocess.run(
+        proc = subprocess.Popen(
             argv,
             cwd=str(cwd),
-            input=stdin.encode() if stdin is not None else None,
-            stdin=None if stdin is not None else subprocess.DEVNULL,
+            stdin=subprocess.PIPE if stdin is not None else subprocess.DEVNULL,
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
-            timeout=timeout,
             env=full_env,
-        )
-    except subprocess.TimeoutExpired as e:
-        return Outcome(
-            False,
-            "timed out after {:g}s".format(timeout),
-            _tail(_decode(e.output)),
+            start_new_session=os.name != "nt",
         )
     except OSError as e:
         return Outcome(False, "could not run {}: {}".format(argv[0], e))
+    try:
+        output, _ = proc.communicate(
+            stdin.encode() if stdin is not None else None, timeout=timeout
+        )
+    except subprocess.TimeoutExpired:
+        _kill_tree(proc)
+        try:
+            output, _ = proc.communicate(timeout=5)
+        except subprocess.TimeoutExpired:
+            output = b""
+        return Outcome(
+            False, "timed out after {:g}s".format(timeout), _tail(_decode(output))
+        )
     if proc.returncode != 0:
         return Outcome(
             False,
             "exited with status {}".format(proc.returncode),
-            _tail(_decode(proc.stdout)),
+            _tail(_decode(output)),
         )
     return Outcome(True)
 
