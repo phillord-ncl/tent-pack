@@ -7,7 +7,7 @@ import pathlib
 
 import pytest
 
-from tentpack.toml_pack import load_toml
+from tent_pack.toml_pack import load_toml
 
 FIXTURES = sorted(pathlib.Path(__file__).parent.joinpath("fixtures").glob("format*/*.toml"))
 

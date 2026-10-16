@@ -3,9 +3,9 @@ import sys
 
 import pytest
 
-from tentpack import FileExists, MaxSize, Pack, RunCommand, RunJava, RunPython
-from tentpack.checks import Custom
-from tentpack.errors import PackError
+from tent_pack import FileExists, MaxSize, Pack, RunCommand, RunJava, RunPython
+from tent_pack.checks import Custom
+from tent_pack.errors import PackError
 
 
 def ctx_for(root, *patterns):

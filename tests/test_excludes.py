@@ -1,7 +1,7 @@
 import pytest
 
-from tentpack.errors import PackError
-from tentpack.excludes import Excluder, standard_set
+from tent_pack.errors import PackError
+from tent_pack.excludes import Excluder, standard_set
 
 
 def test_name_pattern_matches_any_depth():

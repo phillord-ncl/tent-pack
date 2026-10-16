@@ -1,6 +1,6 @@
 import zipfile
 
-from tentpack.cli import main
+from tent_pack.cli import main
 
 TOML = """\
 format = 1
@@ -73,7 +73,7 @@ def test_checks_only_pack(cw, capsys):
 
 def test_pack_py(cw, capsys):
     (cw / "pack.py").write_text(
-        "from tentpack import Pack\n"
+        "from tent_pack import Pack\n"
         "def build():\n"
         "    return Pack(format=1, output='x.zip').require('main.py')\n"
     )
@@ -110,7 +110,7 @@ def test_newer_format_message(cw, capsys):
 def test_pack_py_errors(cw, capsys):
     (cw / "pack.py").write_text("def build():\n    return 5\n")
     code, _, err = run(cw, capsys)
-    assert code == 2 and "must return a tentpack.Pack" in err
+    assert code == 2 and "must return a tent_pack.Pack" in err
     (cw / "pack.py").write_text("raise RuntimeError('x')\n")
     code, _, err = run(cw, capsys)
     assert code == 2 and "failed to load" in err

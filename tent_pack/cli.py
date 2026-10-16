@@ -1,4 +1,4 @@
-"""The `tentpack` command: run the pack file's checks and, if they pass and
+"""The `tent-pack` command: run the pack file's checks and, if they pass and
 the pack file names an output, write the zip."""
 
 import argparse
@@ -29,7 +29,7 @@ def _label(status, colour):
 
 def build_parser():
     p = argparse.ArgumentParser(
-        prog="tentpack",
+        prog="tent-pack",
         description="Check your coursework and pack it into a zip for upload.",
     )
     p.add_argument("-C", "--dir", default=".", help="coursework folder (default: here)")
@@ -50,7 +50,7 @@ def run(args, out):
     pack_file = find_pack_file(root, args.file)
     pack = load_pack(pack_file)
 
-    print("tentpack: {} ({}, format {})".format(
+    print("tent-pack: {} ({}, format {})".format(
         pack.name or root.name, pack_file.name, pack.format), file=out)
     ctx = pack.context(root)
     results = pack.run_checks(ctx)
@@ -66,7 +66,7 @@ def run(args, out):
         counts["pass"], counts["warn"], counts["fail"]), file=out)
 
     if counts["fail"]:
-        print("Not packing: fix the failures above and run tentpack again."
+        print("Not packing: fix the failures above and run tent-pack again."
               if pack.output and not args.verify else "Checks failed.", file=out)
         return 1
     if args.verify:
@@ -86,5 +86,5 @@ def main(argv=None):
     try:
         return run(args, sys.stdout)
     except PackError as e:
-        print("tentpack: error: {}".format(e), file=sys.stderr)
+        print("tent-pack: error: {}".format(e), file=sys.stderr)
         return 2

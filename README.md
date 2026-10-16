@@ -1,18 +1,18 @@
-# tentpack
+# tent-pack
 
 Check student coursework and, optionally, pack it into a zip for upload.
 A lecturer ships a `pack.toml` (or `pack.py`) with the coursework; the
-student runs `tentpack` in the coursework folder.
+student runs `tent-pack` in the coursework folder.
 
-    $ tentpack
-    tentpack: Coursework 1 (pack.toml, format 1)
+    $ tent-pack
+    tent-pack: Coursework 1 (pack.toml, format 1)
     [ OK ] file exists: report.pdf
     [FAIL] python main.py runs
            exited with status 1
     ...
 
 Exit status: 0 all fine (warnings allowed), 1 a check failed, 2 the pack
-file or command line is wrong. `tentpack --verify` runs the checks without
+file or command line is wrong. `tent-pack --verify` runs the checks without
 writing the zip (students can dry-run; markers can reuse it). `-C DIR` and
 `-f FILE` choose the folder and pack file.
 
@@ -62,7 +62,7 @@ invisible to the checks.
 Same model in code. Define `build()` returning a `Pack`:
 
 ```python
-from tentpack import Pack
+from tent_pack import Pack
 
 def build():
     pack = Pack(format=1, output="cw1.zip").exclude_set("python", "os")
@@ -79,8 +79,8 @@ and returns `None`/`True` to pass, or `False` / a message to fail.
 
 ## Compatibility
 
-The pack file and tentpack are distributed separately. `format` is the
-pack-file format version. Old formats keep working on newer tentpack; a
+The pack file and tent-pack are distributed separately. `format` is the
+pack-file format version. Old formats keep working on newer tent-pack; a
 file from a newer format is refused with an upgrade message. A new
 feature that changes meaning gets a new format number. Frozen example pack
 files for each format live in `tests/fixtures/formatN/` and must not be

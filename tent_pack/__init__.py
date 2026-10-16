@@ -1,7 +1,7 @@
-"""tentpack -- check student coursework and pack it into a zip for upload.
+"""tent-pack -- check student coursework and pack it into a zip for upload.
 
 A lecturer distributes a pack.toml (declarative) or pack.py (code) with the
-coursework; the student runs `tentpack`. Both build the same `Pack`.
+coursework; the student runs `tent-pack`. Both build the same `Pack`.
 """
 
 from .checks import (

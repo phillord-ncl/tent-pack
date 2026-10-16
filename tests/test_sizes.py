@@ -1,7 +1,7 @@
 import pytest
 
-from tentpack.errors import PackError
-from tentpack.sizes import format_size, parse_size
+from tent_pack.errors import PackError
+from tent_pack.sizes import format_size, parse_size
 
 
 def test_parse():

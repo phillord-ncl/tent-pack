@@ -1,7 +1,7 @@
 import pytest
 
-from tentpack.errors import PackError
-from tentpack.toml_pack import load_toml, pack_from_dict
+from tent_pack.errors import PackError
+from tent_pack.toml_pack import load_toml, pack_from_dict
 
 
 def bad(data, match):

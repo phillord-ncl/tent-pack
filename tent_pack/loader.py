@@ -19,7 +19,7 @@ def find_pack_file(root, explicit=None):
     found = [root / n for n in ("pack.toml", "pack.py") if (root / n).is_file()]
     if not found:
         raise PackError(
-            "no pack.toml or pack.py in {}; run tentpack in the coursework "
+            "no pack.toml or pack.py in {}; run tent-pack in the coursework "
             "folder".format(root)
         )
     if len(found) > 1:
@@ -30,7 +30,7 @@ def find_pack_file(root, explicit=None):
 
 
 def load_py(path):
-    spec = importlib.util.spec_from_file_location("tentpack_packfile", path)
+    spec = importlib.util.spec_from_file_location("tent_pack_packfile", path)
     module = importlib.util.module_from_spec(spec)
     try:
         spec.loader.exec_module(module)
@@ -48,7 +48,7 @@ def load_py(path):
     except Exception as e:
         raise PackError("{} build() failed: {}: {}".format(path.name, type(e).__name__, e)) from e
     if not isinstance(pack, Pack):
-        raise PackError("{} build() must return a tentpack.Pack".format(path.name))
+        raise PackError("{} build() must return a tent_pack.Pack".format(path.name))
     return pack
 
 

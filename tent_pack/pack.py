@@ -20,10 +20,10 @@ from .context import Context
 from .errors import PackError
 from .excludes import Excluder, standard_set
 
-# Highest pack-file format this tentpack understands. Old formats keep
+# Highest pack-file format this tent-pack understands. Old formats keep
 # working; a bump means a new format, never a change to an old one.
 FORMAT_VERSION = 1
-UPGRADE_HINT = "pip install --upgrade tentpack"
+UPGRADE_HINT = "pip install --upgrade tent-pack"
 
 
 def check_format(fmt):
@@ -31,7 +31,7 @@ def check_format(fmt):
         raise PackError("format must be a whole number, 1 or more, got {!r}".format(fmt))
     if fmt > FORMAT_VERSION:
         raise PackError(
-            "this pack file uses format {} but this tentpack only understands "
+            "this pack file uses format {} but this tent-pack only understands "
             "up to format {}; upgrade with: {}".format(fmt, FORMAT_VERSION, UPGRADE_HINT)
         )
     return fmt

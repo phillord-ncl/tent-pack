@@ -2,8 +2,8 @@ import zipfile
 
 import pytest
 
-from tentpack import FileExists, Pack
-from tentpack.errors import PackError
+from tent_pack import FileExists, Pack
+from tent_pack.errors import PackError
 
 
 def test_severity_and_exceptions(cw):

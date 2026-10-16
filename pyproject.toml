@@ -1,16 +1,16 @@
 [tool.poetry]
-name = "tentpack"
+name = "tent-pack"
 version = "0.1.0"
 description = "Check student coursework and pack it into a consistent zip for upload"
 authors = ["Phillip Lord"]
 readme = "README.md"
-packages = [{ include = "tentpack" }]
+packages = [{ include = "tent_pack" }]
 
 [tool.poetry.dependencies]
 python = ">=3.11,<4.0"
 
 [tool.poetry.scripts]
-tentpack = "tentpack.cli:main"
+tent-pack = "tent_pack.cli:main"
 
 [build-system]
 requires = ["poetry-core"]
