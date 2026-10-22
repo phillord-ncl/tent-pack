@@ -1,0 +1,32 @@
+format = 1
+name = "Max-size demo"
+output = "demo.zip"
+exclude = ["pack.toml"]   # so its own size is not counted
+
+[[check]]
+type = "file-exists"
+path = "main.py"      # present, so this passes
+
+# Limits are tiny so that a few bytes of text trip them.
+
+[[check]]
+type = "max-size"
+limit = "40"          # each file; report.txt is over this
+path = "*"
+
+[[check]]
+type = "max-size"
+limit = "100"         # sum of all files
+total = true
+path = "*"
+
+[[check]]
+type = "max-size"
+limit = "10"          # warning only; main.py is over this but packing goes ahead
+path = "*.py"
+severity = "warn"
+
+[[check]]
+type = "max-size"
+limit = "1KB"         # every file is well under this, so this passes
+path = "notes.txt"

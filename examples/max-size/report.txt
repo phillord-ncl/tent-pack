@@ -1,0 +1,3 @@
+This report is a few lines long,
+which is already too much
+for the very low limit set in pack.toml.

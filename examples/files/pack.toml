@@ -1,0 +1,15 @@
+format = 1
+name = "File-exists demo"
+exclude = ["pack.toml", "*.log"]
+
+[[check]]
+type = "file-exists"
+path = "report.txt"       # present: passes
+
+[[check]]
+type = "file-exists"
+path = "code.py"          # absent: fails with "not found"
+
+[[check]]
+type = "file-exists"
+path = "scratch.log"      # present but excluded: fails, would be left out of the zip

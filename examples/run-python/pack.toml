@@ -1,0 +1,25 @@
+format = 1
+name = "run-python demo"
+exclude = ["pack.toml"]
+
+[[check]]
+type = "run-python"
+script = "ok.py"          # exit 0: passes
+
+[[check]]
+type = "run-python"
+script = "crash.py"       # traceback: fails, stderr shown
+
+[[check]]
+type = "run-python"
+script = "hang.py"
+timeout = 1               # killed after 1 s: fails
+
+[[check]]
+type = "run-python"
+script = "ask.py"
+stdin = "Phil"            # input supplied from the toml: passes
+
+[[check]]
+type = "run-python"
+script = "missing.py"     # not found: fails
