@@ -16,6 +16,15 @@ file or command line is wrong. `tent-pack --verify` runs the checks without
 writing the zip (students can dry-run; markers can reuse it). `-C DIR` and
 `-f FILE` choose the folder and pack file.
 
+tent-pack is part of the tent-tools suite. See also:
+
+- [tent-pole](https://github.com/phillord-ncl/tent-pole) -- manage Canvas
+  course content as markdown and push it to Canvas
+- [tent-peg](https://github.com/phillord-ncl/tent-peg) -- download the
+  submissions you are marking from Canvas, and push marks back
+- [arbiter](https://github.com/phillord-ncl/arbiter) -- mark programming
+  assignments
+
 ## pack.toml
 
 ```toml
