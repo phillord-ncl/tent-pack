@@ -1,4 +1,4 @@
-# tent-pack
+# Tent-Pack: Check and Pack Student Coursework
 
 Check student coursework and, optionally, pack it into a zip for upload.
 A lecturer ships a `pack.toml` (or `pack.py`) with the coursework; the
